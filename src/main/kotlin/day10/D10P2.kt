@@ -18,5 +18,22 @@ fun main() {
         }
     }
 
-    println(listOf(20, 60, 100, 140, 180, 220).map { signals[it - 1] * it }.sum())
+    var sprites = sprites(1)
+    var output = ""
+
+    for (i in 1 until signals.size) {
+
+        output += if (sprites.contains((i - 1) % 40))
+            "#"
+        else
+            " "
+
+        if (signals[i] != signals[i - 1])
+            sprites = sprites(signals[i])
+    }
+    println(output.chunked(40).joinToString("\n"))
+}
+
+fun sprites(p: Int): Set<Int> {
+    return setOf<Int>(p - 1, p, p + 1)
 }
